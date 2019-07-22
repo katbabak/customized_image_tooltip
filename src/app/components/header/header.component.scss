@@ -1,0 +1,26 @@
+@import '../../scss/mixins';
+
+.nav_bar {
+  &.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    height: 40px;
+  }
+  .logo_block {
+    margin-left: 5px;
+
+    .logo_sign {
+      font-family: 'Sniglet', cursive;
+      font-weight: bold;
+      font-size: 2em;
+
+      @include mobile {
+        font-size: 1.3em;
+      }
+    }
+  }
+}
+
