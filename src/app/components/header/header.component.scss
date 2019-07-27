@@ -1,6 +1,9 @@
 @import '../../scss/mixins';
 
 .nav_bar {
+  &.wrapper {
+    box-shadow: 0 -14px 23px 1px rgba(0, 0, 0, 0.75);
+  }
   &.container {
     display: flex;
     flex-direction: row;
