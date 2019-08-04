@@ -1,0 +1,25 @@
+@import "../../scss/mixins";
+
+.all-images {
+  &.container {
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    .image-block-wrapper {
+      margin: 20px;
+    }
+  }
+}
+
+@include mobile {
+  .all-images.container {
+    flex-direction: column;
+
+    .image-block-wrapper {
+      margin: 20px 0;
+      width: inherit;
+    }
+  }
+}
