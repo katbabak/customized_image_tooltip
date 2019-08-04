@@ -1,9 +1,15 @@
 @import '../../scss/mixins';
+@import '../../scss/variables';
 
 .nav_bar {
   &.wrapper {
-    box-shadow: 0 -14px 23px 1px rgba(0, 0, 0, 0.75);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: $white_color;
+    @include box-shadow(0, -14px, 23px, 1px, rgba(0, 0, 0, 0.75));
   }
+
   &.container {
     display: flex;
     flex-direction: row;
@@ -12,16 +18,17 @@
     padding: 10px;
     height: 40px;
   }
+
   .logo_block {
     margin-left: 5px;
 
     .logo_sign {
       font-family: 'Sniglet', cursive;
       font-weight: bold;
-      font-size: 2em;
+      font-size: 1.5em;
 
       @include mobile {
-        font-size: 1.3em;
+        font-size: 1em;
       }
     }
   }
