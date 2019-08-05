@@ -1,0 +1,13 @@
+<div (mouseout)="outContent($event)"
+     (mouseover)="overContent($event)"
+     [ngClass]="{hidden: initHide}"
+     [style.left]="position.left"
+     [style.right]="position.right"
+     [style.top]="position.top"
+     [style.borderColor]="colour"
+     class="kat-tooltip {{ posX }} {{ finalY }}">
+  <div class="kat-tooltip-content"
+       [style.backgroundColor]="colour">
+    <div [innerHtml]="content"></div>
+  </div>
+</div>

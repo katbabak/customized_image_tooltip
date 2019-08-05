@@ -1,5 +1,9 @@
-<div class="image-item wrapper">
-  <img class="img image" [src]="image.imageContent" alt="" width="200">
+<div class="image-item wrapper"
+     [katTooltip]="image.tooltip.text"
+     [katTooltipColour]="image.tooltip.color"
+     [katTooltipPositionX]="image.tooltip.posX"
+     [katTooltipPositionY]="image.tooltip.posY">
+  <img class="img image" [src]="image.imageContent" [alt]="image.tooltip.text">
   <div class="view-details">
     <mat-icon>
       <i class="material-icons">
@@ -9,20 +13,20 @@
   </div>
   <div class="action-buttons-wrapper">
     <div class="buttons-container">
-    <button mat-mini-fab color="primary" class="action-button">
-      <mat-icon>
-        <i class="material-icons">
-          create
-        </i>
-      </mat-icon>
-    </button>
-    <button mat-mini-fab color="warn" class="action-button">
-      <mat-icon>
-        <i class="material-icons">
-          delete_outline
-        </i>
-      </mat-icon>
-    </button>
+      <button mat-mini-fab color="primary" class="action-button">
+        <mat-icon>
+          <i class="material-icons">
+            create
+          </i>
+        </mat-icon>
+      </button>
+      <button mat-mini-fab color="warn" class="action-button">
+        <mat-icon>
+          <i class="material-icons">
+            delete_outline
+          </i>
+        </mat-icon>
+      </button>
     </div>
   </div>
 </div>

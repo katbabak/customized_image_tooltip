@@ -14,6 +14,7 @@ import {
 import { ImageItemComponent } from './components/image-item/image-item.component';
 import { MaterialModule } from './material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { KatTooltipModule } from './directives/kat-tooltip.module';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRouterModule,
     HttpClientModule,
     MaterialModule,
+    KatTooltipModule
   ],
   providers: [
     ImageService,

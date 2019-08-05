@@ -9,6 +9,10 @@ import {
 } from '../../services/image.service';
 import { OcFileStorageService } from '../../services/base64.service';
 import { BaseComponent } from '../../classes/base-component';
+import {
+  POSITION_X,
+  POSITION_Y
+} from '../../models/enums';
 
 @Component({
   selector: 'app-all-images',
@@ -40,7 +44,8 @@ export class AllImagesComponent extends BaseComponent implements OnInit {
       tooltip: {
         color: 'blue',
         text: 'text d',
-        position: 'absolute',
+        posX: POSITION_X.LEFT,
+        posY: POSITION_Y.TOP
       },
       imageContent: this.quokkaData,
     };
