@@ -1,7 +1,8 @@
 import {
   Component,
   Input,
-  AfterContentInit
+  AfterContentInit,
+  DoCheck
 } from '@angular/core';
 
 interface Position {
@@ -17,7 +18,7 @@ interface Position {
   styleUrls: ['./kat-tooltip-content.scss']
 })
 
-export class KatTooltipContentComponent implements AfterContentInit {
+export class KatTooltipContentComponent implements AfterContentInit, DoCheck {
   @Input() hostElement: HTMLElement;
   @Input() content: string;
   @Input() posX: string;
@@ -37,6 +38,12 @@ export class KatTooltipContentComponent implements AfterContentInit {
 
   outContent(event: Event) {
     this.hideFunctionForContent(event);
+  }
+
+  ngDoCheck() {
+    if (!document.body.contains(this.hostElement)) {
+      this.hideFunctionForContent(new Event('reset'));
+    }
   }
 
   ngAfterContentInit(): void {

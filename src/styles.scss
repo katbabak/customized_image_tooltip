@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "@angular/material/prebuilt-themes/indigo-pink.css";
 @import "app/scss/mixins";
+
 body {
   margin: 0;
   font-family: 'Sniglet', cursive;
@@ -11,6 +12,6 @@ body {
   display: flex;
 }
 
-.action-button {
+.btn {
   @include actionButton(transparent, white);
 }
