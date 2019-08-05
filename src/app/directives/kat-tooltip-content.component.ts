@@ -59,7 +59,6 @@ export class KatTooltipContentComponent implements AfterContentInit {
     let left: number | string = 'auto';
 
     const rect = el.getBoundingClientRect();
-    console.warn(rect);
     if (!this.posX) {
       if (window.innerWidth / 3 > rect.left) {
         this.posX = 'left';

@@ -1,7 +1,6 @@
 import {
   ComponentFactoryResolver,
   ComponentRef,
-  ContentChild,
   Directive,
   HostListener,
   Input,
@@ -24,7 +23,6 @@ export class KatTooltipDirective implements OnChanges, OnDestroy {
   @Input() katTooltipColour;
 
   private defaultColour = '#343434';
-  private _visible = false;
   private tooltip: ComponentRef<KatTooltipContentComponent>;
 
   constructor(private viewContainerRef: ViewContainerRef,
@@ -33,14 +31,6 @@ export class KatTooltipDirective implements OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-  }
-
-  get visible(): boolean {
-    return this._visible;
-  }
-
-  set visible(value: boolean) {
-    this._visible = value;
   }
 
   @HostListener('mouseenter', ['$event'])
@@ -58,10 +48,7 @@ export class KatTooltipDirective implements OnChanges, OnDestroy {
   }
 
   show(): void {
-    console.log('__------SHOW!!!!');
-    console.log(this.katTooltip);
     if (this.katTooltip) {
-      this.visible = true;
       if (!this.tooltip) {
         const inputs: { [key: string]: any } = {
           hostElement: this.viewContainerRef.element.nativeElement,
@@ -74,13 +61,7 @@ export class KatTooltipDirective implements OnChanges, OnDestroy {
         };
         const factory = this.resolver.resolveComponentFactory(KatTooltipContentComponent);
         let viewContainerRef: ViewContainerRef = null;
-        //
-        //     if (this.toRoot) {
-        //       const root = this.applicationRef.components[0].instance;
-        //       viewContainerRef = 'viewContainerRef' in root ? root.viewContainerRef : this.viewContainerRef;
-        //     } else {
         viewContainerRef = this.viewContainerRef;
-        // }
 
         this.tooltip = factory.create(viewContainerRef.injector);
         Object.keys(inputs).map((key) => this.tooltip.instance[key] = inputs[key]);
@@ -91,13 +72,11 @@ export class KatTooltipDirective implements OnChanges, OnDestroy {
 
 
   hide(): void {
-    console.log('HIDE!!!');
-    // this.visible = false;
-    // if (this.tooltip) {
-    //   this.tooltip.destroy();
-    //   this.tooltip = null;
-    // }
-    // this.clearTimeouts();
+    if (this.tooltip) {
+      this.tooltip.destroy();
+      this.tooltip = null;
+    }
+    this.clearTimeouts();
   }
 
   showFunctionForContent(event: Event) {
