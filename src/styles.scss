@@ -5,7 +5,7 @@
 body {
   margin: 0;
   font-family: 'Sniglet', cursive;
-  font-size: 24px;
+  font-size: 16px;
 }
 
 .flex {
@@ -14,4 +14,20 @@ body {
 
 .btn {
   @include actionButton(transparent, white);
+}
+
+.grid {
+  display: grid;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.cdk-overlay-pane {
+  max-height: 90vh;
+}
+
+.color-picker.open {
+  margin: 10px auto;
 }

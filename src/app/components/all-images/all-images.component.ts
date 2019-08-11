@@ -31,38 +31,18 @@ export class AllImagesComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    localStorage.removeItem(_IMAGES);
-    this.url = 'https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500';
-
-    this.ocFileStorageSvc
-      .getStoredFile('quokka', this.url)
-      .subscribe((base64Data: string) => {
-        this.quokkaData = base64Data;
-      });
-
-    const image: Image = {
-      tooltip: {
-        color: 'blue',
-        text: 'text d',
-        posX: POSITION_X.LEFT,
-        posY: POSITION_Y.TOP
-      },
-      imageContent: this.quokkaData,
-    };
-
-    for (let i = 0; i < 10; i++) {
-      this.setImage(image);
-    }
+    // localStorage.removeItem(_IMAGES);
+    // this.url = 'https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500';
+    // this.ocFileStorageSvc
+    //   .getStoredFile('quokka', this.url)
+    //   .subscribe((base64Data: string) => {
+    //     this.quokkaData = base64Data;
+    //   });
+    this.getImages();
   }
 
-  _handleReaderLoaded(readerEvt) {
-    const binaryString = readerEvt.target.result;
-    this.base64textString = btoa(binaryString);
-    console.log(btoa(binaryString));
+  getImages() {
+    this.imageService.getImages();
   }
 
-
-  setImage(image: Image) {
-    this.imageService.setNewImage(image);
-  }
 }

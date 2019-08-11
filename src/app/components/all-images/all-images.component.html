@@ -1,16 +1,19 @@
 <div class="all-images wrapper">
-  <div class="all-images container flex" *ngIf="imageService.imagesArrayObservable | async; else empty">
+  <div class="all-images container flex" *ngIf="(imageService.imagesArrayObservable | async).length>0; else empty">
     <div class="image-block-wrapper" *ngFor="let image of (imageService.imagesArrayObservable | async)">
       <app-image-item [image]="image"></app-image-item>
     </div>
   </div>
   <ng-template #empty>
     <div class="no-images">
-      You have not added images yet. Click on + to add.
+      <h4 class="title_h4">You have not added images yet. Click on
+        <app-add-plus-button></app-add-plus-button>
+        to add.
+      </h4>
     </div>
   </ng-template>
 </div>
 
-<div class="add-new-image-wrapper">
+<div class="add-new-image-wrapper" *ngIf="(imageService.imagesArrayObservable | async).length>0">
   <app-add-plus-button></app-add-plus-button>
 </div>

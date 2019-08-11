@@ -72,7 +72,7 @@ export class OcFileStorageService {
 
   //#region Util methods
 
-  private blobToBase64(blob: Blob): Observable<{}> {
+  blobToBase64(blob: Blob): Observable<{}> {
     const fileReader = new FileReader();
     const observable = new Observable(observer => {
       fileReader.onloadend = () => {
