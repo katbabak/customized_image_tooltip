@@ -8,3 +8,8 @@ export enum POSITION_Y {
   TOP = 'top',
   BOTTOM = 'bottom'
 }
+
+export enum DIALOG_STATES {
+  CREATE = 'CREATE',
+  DETAILS = 'DETAILS'
+}

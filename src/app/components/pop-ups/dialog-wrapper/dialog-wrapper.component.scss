@@ -1,0 +1,15 @@
+@import '../../../scss/mixins';
+
+::ng-deep .mat-dialog-container {
+  @include mobile {
+    padding: 5px;
+  }
+}
+
+::ng-deep .cdk-overlay-pane {
+  max-height: 90vh;
+
+  @include mobile {
+    max-width: 100vw !important;
+  }
+}

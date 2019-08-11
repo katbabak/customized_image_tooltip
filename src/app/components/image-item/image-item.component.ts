@@ -4,6 +4,9 @@ import {
   OnInit
 } from '@angular/core';
 import { Image } from '../../models/image';
+import { DialogWrapperComponent } from '../pop-ups/dialog-wrapper/dialog-wrapper.component';
+import { MatDialog } from '@angular/material';
+import { DIALOG_STATES } from '../../models/enums';
 
 @Component({
   selector: 'app-image-item',
@@ -13,10 +16,19 @@ import { Image } from '../../models/image';
 export class ImageItemComponent implements OnInit {
   @Input() image: Image;
 
-  constructor() {
+  constructor(private dialog: MatDialog) {
   }
 
   ngOnInit() {
   }
 
+  openDetails() {
+    const dialogRef = this.dialog.open(DialogWrapperComponent, {
+      width: 'auto',
+      data: {
+        state: DIALOG_STATES.DETAILS,
+        imageData: this.image
+      }
+    });
+  }
 }

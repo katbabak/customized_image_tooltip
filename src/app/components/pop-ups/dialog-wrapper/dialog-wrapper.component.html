@@ -1,7 +1,11 @@
 <div class="pop-up wrapper">
   <div class="pop-up container">
-    <div class="add-new-image-pop-up">
+    <div class="add-new-image-pop-up" *ngIf="data.state === dialogStates.CREATE">
       <app-new-image (popUpClosed)="getPopUpState($event)"></app-new-image>
+    </div>
+    <div class="image-details-view"
+         *ngIf="data.state === dialogStates.DETAILS">
+      <app-image-details [image]="data.imageData"></app-image-details>
     </div>
   </div>
 </div>

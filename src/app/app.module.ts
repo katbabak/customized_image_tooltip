@@ -21,6 +21,7 @@ import { NewImageComponent } from './components/new-image/new-image.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { MatInputModule } from '@angular/material';
+import { ImageDetailsComponent } from './components/image-details/image-details.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { MatInputModule } from '@angular/material';
     ImageItemComponent,
     AddPlusButtonComponent,
     DialogWrapperComponent,
-    NewImageComponent
+    NewImageComponent,
+    ImageDetailsComponent,
   ],
   imports: [
     BrowserModule,

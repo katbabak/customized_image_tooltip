@@ -4,6 +4,7 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { DialogWrapperComponent } from '../pop-ups/dialog-wrapper/dialog-wrapper.component';
+import { DIALOG_STATES } from '../../models/enums';
 
 @Component({
   selector: 'app-add-plus-button',
@@ -21,7 +22,9 @@ export class AddPlusButtonComponent implements OnInit{
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogWrapperComponent, {
       width: 'auto',
-      data: {}
+      data: {
+        state: DIALOG_STATES.CREATE
+      }
     });
 
     // dialogRef.afterClosed().subscribe(result => {

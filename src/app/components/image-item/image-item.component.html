@@ -3,8 +3,12 @@
      [katTooltipColour]="image.tooltip.color"
      [katTooltipPositionX]="image.tooltip.posX"
      [katTooltipPositionY]="image.tooltip.posY">
-  <img class="img image" [src]="image.imageContent" [alt]="image.tooltip.text">
-  <div class="view-details">
+  <img class="img image"
+       [src]="image.imageContent"
+       [alt]="image.tooltip.text"
+       (click)="openDetails()">
+  <div class="view-details"
+       (click)="openDetails()">
     <mat-icon>
       <i class="material-icons">
         zoom_in
