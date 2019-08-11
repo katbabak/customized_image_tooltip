@@ -1,0 +1,64 @@
+<div class="new-image-wrapper">
+  <div class="new-image-container grid"
+       [formGroup]="newImageForm">
+    <div class="column left-column">
+      <div class="input-file-wrapper">
+        <label class="lbl lbl-file" for="file">
+          <span>Select image...</span>
+          <input type="file"
+                 id="file"
+                 (change)="getImage($event)"
+                 formControlName="newImage">
+        </label>
+      </div>
+
+      <div class="image-preview-wrapper">
+        <div class="image-preview-mock">The preview will be here</div>
+
+        <img *ngIf="imagePreview"
+             [src]="imagePreview"
+             alt="new image preview"
+             class="image-for-preview">
+      </div>
+
+    </div>
+    <div class="column right-column">
+      <mat-form-field>
+        <mat-label>position X</mat-label>
+        <mat-select placeholder="position X" formControlName="tooltipPosX">
+          <mat-option *ngFor="let position of positionXArray" [value]="position">{{position}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>position Y</mat-label>
+        <mat-select placeholder="position Y" formControlName="tooltipPosY">
+          <mat-option *ngFor="let position of positionYArray" [value]="position">{{position}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Color</mat-label>
+        <input matInput
+               placeholder="color"
+               formControlName="tooltipColor"
+               [style.background]="newImageForm.value.tooltipColor"
+               [(colorPicker)]="newImageForm.value.tooltipColor"
+               (colorPickerChange)="colorChange($event)"
+               [cpDialogDisplay]="'inline'"
+               [cpToggle]="true">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Tooltip text</mat-label>
+        <input matInput formControlName="tooltipText">
+      </mat-form-field>
+    </div>
+
+    <div class="united-row">
+      <button mat-raised-button
+              color="primary"
+              [disabled]="newImageForm.pristine || newImageForm.invalid"
+              (click)="saveNewImage()">
+        Save new image
+      </button>
+    </div>
+  </div>
+</div>

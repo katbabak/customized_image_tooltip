@@ -16,6 +16,11 @@ import { MaterialModule } from './material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { KatTooltipModule } from './directives/kat-tooltip.module';
 import { AddPlusButtonComponent } from './components/add-plus-button/add-plus-button.component';
+import { DialogWrapperComponent } from './components/pop-ups/dialog-wrapper/dialog-wrapper.component';
+import { NewImageComponent } from './components/new-image/new-image.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ColorPickerModule } from 'ngx-color-picker';
+import { MatInputModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -23,7 +28,9 @@ import { AddPlusButtonComponent } from './components/add-plus-button/add-plus-bu
     HeaderComponent,
     AllImagesComponent,
     ImageItemComponent,
-    AddPlusButtonComponent
+    AddPlusButtonComponent,
+    DialogWrapperComponent,
+    NewImageComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +39,10 @@ import { AddPlusButtonComponent } from './components/add-plus-button/add-plus-bu
     AppRouterModule,
     HttpClientModule,
     MaterialModule,
-    KatTooltipModule
+    KatTooltipModule,
+    ReactiveFormsModule,
+    ColorPickerModule,
+    MatInputModule
   ],
   providers: [
     ImageService,
@@ -40,6 +50,9 @@ import { AddPlusButtonComponent } from './components/add-plus-button/add-plus-bu
   ],
   bootstrap: [
     AppComponent
+  ],
+  entryComponents: [
+    DialogWrapperComponent
   ]
 })
 export class AppModule {
