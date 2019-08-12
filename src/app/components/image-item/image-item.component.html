@@ -17,7 +17,7 @@
   </div>
   <div class="action-buttons-wrapper">
     <div class="buttons-container">
-      <button mat-mini-fab
+      <button mat-raised-button
               color="primary"
               class="btn btn-edit action-button"
               routerLink="edit/{{image.id}}">
@@ -27,7 +27,7 @@
           </i>
         </mat-icon>
       </button>
-      <button mat-mini-fab
+      <button mat-raised-button
               color="warn"
               class="btn btn-delete action-button"
               (click)="imageService.deleteImage(image.id)">
