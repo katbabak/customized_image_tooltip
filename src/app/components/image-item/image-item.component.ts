@@ -7,6 +7,7 @@ import { Image } from '../../models/image';
 import { DialogWrapperComponent } from '../pop-ups/dialog-wrapper/dialog-wrapper.component';
 import { MatDialog } from '@angular/material';
 import { DIALOG_STATES } from '../../models/enums';
+import { ImageService } from '../../services/image.service';
 
 @Component({
   selector: 'app-image-item',
@@ -16,7 +17,8 @@ import { DIALOG_STATES } from '../../models/enums';
 export class ImageItemComponent implements OnInit {
   @Input() image: Image;
 
-  constructor(private dialog: MatDialog) {
+  constructor(private dialog: MatDialog,
+              public imageService: ImageService) {
   }
 
   ngOnInit() {

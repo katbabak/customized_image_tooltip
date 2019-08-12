@@ -17,11 +17,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { KatTooltipModule } from './directives/kat-tooltip.module';
 import { AddPlusButtonComponent } from './components/add-plus-button/add-plus-button.component';
 import { DialogWrapperComponent } from './components/pop-ups/dialog-wrapper/dialog-wrapper.component';
-import { NewImageComponent } from './components/new-image/new-image.component';
+import { AddOrUpdateImageComponent } from './components/new-image/add-or-update-image.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { MatInputModule } from '@angular/material';
 import { ImageDetailsComponent } from './components/image-details/image-details.component';
+import { ImageEditComponent } from './components/image-edit/image-edit.component';
 
 @NgModule({
   declarations: [
@@ -31,8 +32,9 @@ import { ImageDetailsComponent } from './components/image-details/image-details.
     ImageItemComponent,
     AddPlusButtonComponent,
     DialogWrapperComponent,
-    NewImageComponent,
+    AddOrUpdateImageComponent,
     ImageDetailsComponent,
+    ImageEditComponent
   ],
   imports: [
     BrowserModule,

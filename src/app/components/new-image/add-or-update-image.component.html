@@ -1,14 +1,16 @@
-<div class="new-image-wrapper">
+<mat-progress-bar mode="query"
+                  *ngIf="(imageService.loadingObservable | async)"></mat-progress-bar>
+<div class="new-image-wrapper"
+     *ngIf="imageForm">
   <div class="new-image-container grid"
-       [formGroup]="newImageForm">
+       [formGroup]="imageForm">
     <div class="column left-column">
       <div class="input-file-wrapper">
         <label class="lbl lbl-file" for="file">
           <span>Select image...</span>
           <input type="file"
                  id="file"
-                 (change)="getImage($event)"
-                 formControlName="newImage">
+                 (change)="getImageBase64($event)">
         </label>
       </div>
 
@@ -40,8 +42,8 @@
         <input matInput
                placeholder="color"
                formControlName="tooltipColor"
-               [style.background]="newImageForm.value.tooltipColor"
-               [(colorPicker)]="newImageForm.value.tooltipColor"
+               [style.background]="imageForm.value.tooltipColor"
+               [(colorPicker)]="imageForm.value.tooltipColor"
                (colorPickerChange)="colorChange($event)"
                [cpDialogDisplay]="'inline'"
                [cpToggle]="true">
@@ -55,9 +57,9 @@
     <div class="united-row">
       <button mat-raised-button
               color="primary"
-              [disabled]="newImageForm.pristine || newImageForm.invalid"
-              (click)="saveNewImage()">
-        Save new image
+              [disabled]="imageForm.pristine || imageForm.invalid || !imagePreview"
+              (click)="addOrUpdateImage()">
+        {{editMode ? 'Edit image' : 'Save new image' }}
       </button>
     </div>
   </div>
