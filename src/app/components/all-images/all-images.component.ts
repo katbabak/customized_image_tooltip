@@ -2,17 +2,11 @@ import {
   Component,
   OnInit
 } from '@angular/core';
-import { Image } from '../../models/image';
 import {
-  _IMAGES,
   ImageService
 } from '../../services/image.service';
-import { FileService } from '../../services/base64.service';
 import { BaseComponent } from '../../classes/base-component';
-import {
-  POSITION_X,
-  POSITION_Y
-} from '../../models/enums';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-all-images',
@@ -30,7 +24,9 @@ export class AllImagesComponent extends BaseComponent implements OnInit {
   }
 
   getImages() {
-    this.imageService.getImages();
+    this.imageService.getImages()
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe();
   }
 
 }

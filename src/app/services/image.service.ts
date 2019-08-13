@@ -27,13 +27,21 @@ export class ImageService {
 
   }
 
-  getImages() {
+  getImages(): Observable<Image[] | Error> {
     this.loading.next(true);
     const arrayFromLS: Image[] = localStorage.getItem(_IMAGES) ? JSON.parse(localStorage.getItem(_IMAGES)) : [];
-    of(arrayFromLS).pipe(delay(2000)).subscribe((array) => {
-      this.loading.next(false);
-      this.imagesArray$.next(array);
-    });
+    return of(arrayFromLS).pipe(
+      delay(2000),
+      map((array) => {
+        this.loading.next(false);
+        this.imagesArray$.next(array);
+        return array;
+      }),
+      catchError((error: Error) => {
+        this.loading.next(false);
+        return throwError(error);
+      })
+    );
   }
 
   getImage(imageId: string): Observable<Image> {
@@ -52,7 +60,7 @@ export class ImageService {
     }));
   }
 
-  addOrUpdateImage(image: Image): Observable<string | Error> {
+  addOrUpdateImage(image: Image): Observable<Image[] | Error> {
     this.loading.next(true);
     const arrayFromLS: Image[] = localStorage.getItem(_IMAGES) ? JSON.parse(localStorage.getItem(_IMAGES)) : [];
     let imageFound = false;
@@ -68,18 +76,20 @@ export class ImageService {
     }
     try {
       localStorage.setItem(_IMAGES, JSON.stringify(arrayFromLS));
-      of(arrayFromLS).pipe(delay(2000)).subscribe((array) => {
-        this.loading.next(false);
-        this.imagesArray$.next(array);
-        return of('');
-      });
+      return of(arrayFromLS).pipe(
+        delay(2000),
+        map((array) => {
+          this.loading.next(false);
+          this.imagesArray$.next(array);
+          return array;
+        }));
     } catch (e) {
       this.loading.next(false);
       return throwError(e);
     }
   }
 
-  deleteImage(imageId: string) {
+  deleteImage(imageId: string): Observable<Image[] | Error> {
     this.loading.next(true);
     const arrayFromLS: Image[] = localStorage.getItem(_IMAGES) ? JSON.parse(localStorage.getItem(_IMAGES)) : [];
     for (let i = 0; i < arrayFromLS.length; i++) {
@@ -88,10 +98,17 @@ export class ImageService {
         break;
       }
     }
-    localStorage.setItem(_IMAGES, JSON.stringify(arrayFromLS));
-    of(arrayFromLS).pipe(delay(2000)).subscribe((array) => {
+    try {
+      localStorage.setItem(_IMAGES, JSON.stringify(arrayFromLS));
+      return of(arrayFromLS).pipe(
+        map((array) => {
+          this.loading.next(false);
+          this.imagesArray$.next(array);
+          return array;
+        }));
+    } catch (e) {
       this.loading.next(false);
-      this.imagesArray$.next(array);
-    });
+      return throwError(e);
+    }
   }
 }

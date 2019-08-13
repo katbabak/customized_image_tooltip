@@ -22,13 +22,15 @@ import {
   Router
 } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
+import { BaseComponent } from '../../classes/base-component';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-or-update-image',
   templateUrl: './add-or-update-image.component.html',
   styleUrls: ['./add-or-update-image.component.scss']
 })
-export class AddOrUpdateImageComponent implements OnInit {
+export class AddOrUpdateImageComponent extends BaseComponent implements OnInit {
   imageForm: FormGroup = null;
   positionXArray: string[] = [];
   positionYArray: string[] = [];
@@ -42,6 +44,7 @@ export class AddOrUpdateImageComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private _snackBar: MatSnackBar) {
+    super();
   }
 
   ngOnInit() {
@@ -53,12 +56,14 @@ export class AddOrUpdateImageComponent implements OnInit {
   private getImage() {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.imageService.getImage(id.toString()).subscribe((image) => {
-        this.image = image;
-        this.editMode = true;
-        this.imagePreview = this.image.imageContent;
-        this.initForm();
-      });
+      this.imageService.getImage(id.toString())
+        .pipe(takeUntil(this.unsubscribe))
+        .subscribe((image) => {
+          this.image = image;
+          this.editMode = true;
+          this.imagePreview = this.image.imageContent;
+          this.initForm();
+        });
     } else {
       this.initForm();
     }
@@ -82,9 +87,11 @@ export class AddOrUpdateImageComponent implements OnInit {
   getImageBase64(e) {
     const doesExist = e.target.files.length > 0;
     if (doesExist) {
-      this.base64Service.blobToBase64(e.target.files[0]).subscribe((base64String) => {
-        this.imagePreview = base64String;
-      });
+      this.base64Service.blobToBase64(e.target.files[0])
+        .pipe(takeUntil(this.unsubscribe))
+        .subscribe((base64String) => {
+          this.imagePreview = base64String;
+        });
     }
   }
 
@@ -100,6 +107,7 @@ export class AddOrUpdateImageComponent implements OnInit {
       }
     };
     this.imageService.addOrUpdateImage(newImage)
+      .pipe(takeUntil(this.unsubscribe))
       .subscribe(() => {
           this.popUpClosed.emit(true);
           this.router.navigateByUrl('/');
@@ -112,7 +120,7 @@ export class AddOrUpdateImageComponent implements OnInit {
 
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
-      duration: 100000,
+      duration: 10000,
     });
   }
 }
