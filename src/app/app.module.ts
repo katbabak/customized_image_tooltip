@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
 import { AllImagesComponent } from './components/all-images/all-images.component';
 import { AppRouterModule } from './app-router.module';
 import { ImageService } from './services/image.service';
-import { OcFileStorageService } from './services/base64.service';
+import { FileService } from './services/base64.service';
 import {
   HttpClientModule
 } from '@angular/common/http';
@@ -22,7 +22,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { MatInputModule } from '@angular/material';
 import { ImageDetailsComponent } from './components/image-details/image-details.component';
-import { ImageEditComponent } from './components/image-edit/image-edit.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +33,6 @@ import { ImageEditComponent } from './components/image-edit/image-edit.component
     DialogWrapperComponent,
     AddOrUpdateImageComponent,
     ImageDetailsComponent,
-    ImageEditComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +48,7 @@ import { ImageEditComponent } from './components/image-edit/image-edit.component
   ],
   providers: [
     ImageService,
-    OcFileStorageService
+    FileService
   ],
   bootstrap: [
     AppComponent

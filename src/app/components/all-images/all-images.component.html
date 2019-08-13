@@ -1,15 +1,15 @@
 <mat-progress-bar mode="query"
                   *ngIf="(imageService.loadingObservable | async)"
                   class="loader"></mat-progress-bar>
-<div class="all-images wrapper">
+<div class="all-images wrapper"
+     *ngIf="!(imageService.loadingObservable | async)">
   <div class="all-images container flex"
-       *ngIf="(imageService.imagesArrayObservable | async).length>0; else empty">
+       *ngIf="(imageService.imagesArrayObservable | async).length > 0; else empty">
     <div class="image-block-wrapper" *ngFor="let image of (imageService.imagesArrayObservable | async)">
       <app-image-item [image]="image"></app-image-item>
     </div>
   </div>
-  <ng-template #empty
-               *ngIf="!(imageService.loadingObservable | async)">
+  <ng-template #empty>
     <div class="no-images">
       <h4 class="title_h4">You have not added images yet. Click on
         <app-add-plus-button></app-add-plus-button>

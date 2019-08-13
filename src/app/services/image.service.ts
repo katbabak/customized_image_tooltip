@@ -3,9 +3,11 @@ import { Image } from '../models/image';
 import {
   BehaviorSubject,
   Observable,
-  of
+  of,
+  throwError
 } from 'rxjs';
 import {
+  catchError,
   delay,
   map
 } from 'rxjs/operators';
@@ -25,17 +27,6 @@ export class ImageService {
 
   }
 
-  setNewImage(image: Image) {
-    this.loading.next(true);
-    const arrayFromLS: Image[] = localStorage.getItem(_IMAGES) ? JSON.parse(localStorage.getItem(_IMAGES)) : [];
-    arrayFromLS.push(image);
-    localStorage.setItem(_IMAGES, JSON.stringify(arrayFromLS));
-    of(arrayFromLS).pipe(delay(2000)).subscribe((array) => {
-      this.loading.next(false);
-      this.imagesArray$.next(array);
-    });
-  }
-
   getImages() {
     this.loading.next(true);
     const arrayFromLS: Image[] = localStorage.getItem(_IMAGES) ? JSON.parse(localStorage.getItem(_IMAGES)) : [];
@@ -49,10 +40,9 @@ export class ImageService {
     this.loading.next(true);
     const arrayFromLS: Image[] = localStorage.getItem(_IMAGES) ? JSON.parse(localStorage.getItem(_IMAGES)) : [];
     let selectedImage: Image;
-    debugger;
-    for (let i = 0; i < arrayFromLS.length; i++) {
-      if (arrayFromLS[i].id === imageId) {
-        selectedImage = arrayFromLS[i];
+    for (const item of arrayFromLS) {
+      if (item.id === imageId) {
+        selectedImage = item;
         break;
       }
     }
@@ -62,7 +52,7 @@ export class ImageService {
     }));
   }
 
-  addOrUpdateImage(image: Image) {
+  addOrUpdateImage(image: Image): Observable<string | Error> {
     this.loading.next(true);
     const arrayFromLS: Image[] = localStorage.getItem(_IMAGES) ? JSON.parse(localStorage.getItem(_IMAGES)) : [];
     let imageFound = false;
@@ -76,11 +66,17 @@ export class ImageService {
     if (!imageFound) {
       arrayFromLS.push(image);
     }
-    localStorage.setItem(_IMAGES, JSON.stringify(arrayFromLS));
-    of(arrayFromLS).pipe(delay(2000)).subscribe((array) => {
+    try {
+      localStorage.setItem(_IMAGES, JSON.stringify(arrayFromLS));
+      of(arrayFromLS).pipe(delay(2000)).subscribe((array) => {
+        this.loading.next(false);
+        this.imagesArray$.next(array);
+        return of('');
+      });
+    } catch (e) {
       this.loading.next(false);
-      this.imagesArray$.next(array);
-    });
+      return throwError(e);
+    }
   }
 
   deleteImage(imageId: string) {

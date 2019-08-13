@@ -2,6 +2,7 @@
                   *ngIf="(imageService.loadingObservable | async)"></mat-progress-bar>
 <div class="new-image-wrapper"
      *ngIf="imageForm">
+  <h3 class="h3-title">{{editMode ? 'Edit image' : 'Add new image'}}</h3>
   <div class="new-image-container grid"
        [formGroup]="imageForm">
     <div class="column left-column">
@@ -10,7 +11,8 @@
           <span>Select image...</span>
           <input type="file"
                  id="file"
-                 (change)="getImageBase64($event)">
+                 (change)="getImageBase64($event)"
+                 formControlName="imageFile">
         </label>
       </div>
 

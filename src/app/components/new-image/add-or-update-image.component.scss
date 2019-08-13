@@ -6,87 +6,93 @@
   width: calc(100% - 20px);
   margin: auto;
   padding: 10px;
-}
 
-.new-image-container.grid {
-  grid-template-areas: "form1 form2" "btn-save btn-save";
-  grid-template-columns: repeat(2, 1fr);
-  grid-column-gap: 5%;
-
-  @include mobile {
-    grid-template-columns: repeat(1, 1fr);
-    grid-template-areas: "form1" "form2" "btn-save";
+  .h3-title {
+    text-align: center;
   }
 
-  .left-column {
-    grid-area: form1;
-  }
 
-  .right-column {
-    grid-area: form2;
-  }
+  .new-image-container.grid {
+    grid-template-areas: "form1 form2" "btn-save btn-save";
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 5%;
 
-  .united-row {
-    grid-area: btn-save;
-    text-align: right;
-  }
-
-  .input-file-wrapper {
-    display: flex;
-
-    .lbl.lbl-file {
-      background-color: rgba($button_bg, .8);
-      border: 1px solid rgba($button_bg, 1);
-      border-radius: 5px;
-      width: auto;
-      padding: 5px;
-      cursor: pointer;
-      color: $white_color;
-      margin: 10px;
-      @include box-shadow(13px, -8px, 23px, -10px, rgba($black_color, 0.75));
-
-      &:active {
-        padding: 5px;
-        background-color: rgba($button_bg, 1);
-      }
-
-      &:hover {
-        padding: 7px;
-        background-color: rgba($button_bg, 1);
-      }
-    }
-  }
-
-  .image-preview-wrapper {
-    position: relative;
-    width: 100%;
-    max-height: 300px;
-    height: 100%;
-    overflow: hidden;
-    border: 1px solid rgba($black_color, 0.2);
-    display: flex;
-    justify-content: center;
-    align-items: center;
     @include mobile {
-      height: 300px;
+      grid-template-columns: repeat(1, 1fr);
+      grid-template-areas: "form1" "form2" "btn-save";
     }
 
-    .image-preview-mock {
-      text-align: center;
-      color: rgba($black_color, 0.2);
+    .left-column {
+      grid-area: form1;
     }
 
-    .image-for-preview {
-      position: absolute;
-      top: 0;
-      left: 0;
+    .right-column {
+      grid-area: form2;
+    }
+
+    .united-row {
+      grid-area: btn-save;
+      text-align: right;
+    }
+
+    .input-file-wrapper {
+      display: flex;
+
+      .lbl.lbl-file {
+        background-color: rgba($button_bg, .8);
+        border: 1px solid rgba($button_bg, 1);
+        border-radius: 5px;
+        width: auto;
+        padding: 5px;
+        cursor: pointer;
+        color: $white_color;
+        margin: 10px;
+        @include box-shadow(13px, -8px, 23px, -10px, rgba($black_color, 0.75));
+
+        &:active {
+          padding: 5px;
+          background-color: rgba($button_bg, 1);
+        }
+
+        &:hover {
+          padding: 7px;
+          background-color: rgba($button_bg, 1);
+        }
+      }
+    }
+
+    .image-preview-wrapper {
+      position: relative;
       width: 100%;
+      max-height: 300px;
       height: 100%;
-      object-fit: cover;
+      overflow: hidden;
+      border: 1px solid rgba($black_color, 0.2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      @include mobile {
+        height: 300px;
+      }
+
+      .image-preview-mock {
+        text-align: center;
+        color: rgba($black_color, 0.2);
+      }
+
+      .image-for-preview {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
     }
+  }
+
+  #file {
+    display: none;
   }
 }
 
-#file {
-  display: none;
-}

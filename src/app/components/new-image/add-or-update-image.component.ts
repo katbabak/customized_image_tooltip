@@ -13,7 +13,7 @@ import {
   POSITION_X,
   POSITION_Y
 } from '../../models/enums';
-import { OcFileStorageService } from '../../services/base64.service';
+import { FileService } from '../../services/base64.service';
 import { Image } from '../../models/image';
 import { ImageService } from '../../services/image.service';
 import * as uuid from 'uuid';
@@ -21,6 +21,7 @@ import {
   ActivatedRoute,
   Router
 } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-add-or-update-image',
@@ -36,10 +37,11 @@ export class AddOrUpdateImageComponent implements OnInit {
   @Output() popUpClosed: EventEmitter<boolean> = new EventEmitter(false);
   private image: Image = null;
 
-  constructor(private base64Service: OcFileStorageService,
+  constructor(private base64Service: FileService,
               private imageService: ImageService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private _snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -64,6 +66,7 @@ export class AddOrUpdateImageComponent implements OnInit {
 
   initForm() {
     this.imageForm = new FormGroup({
+      imageFile: new FormControl(''),
       tooltipPosX: new FormControl(this.editMode ? this.image.tooltip.posX : 'left', Validators.required),
       tooltipPosY: new FormControl(this.editMode ? this.image.tooltip.posY : 'top', Validators.required),
       tooltipColor: new FormControl(this.editMode ? this.image.tooltip.color : '#37ce3b', Validators.required),
@@ -96,8 +99,20 @@ export class AddOrUpdateImageComponent implements OnInit {
         text: this.imageForm.get('tooltipText').value,
       }
     };
-    this.imageService.addOrUpdateImage(newImage);
-    this.popUpClosed.emit(true);
-    this.router.navigateByUrl('/');
+    this.imageService.addOrUpdateImage(newImage)
+      .subscribe(() => {
+          this.popUpClosed.emit(true);
+          this.router.navigateByUrl('/');
+        },
+        () => {
+          this.openSnackBar(`It is not enough place for saving in localStorage.
+            It may happen because loaded image size is too big!`, 'Ok');
+        });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 100000,
+    });
   }
 }
